@@ -100,7 +100,9 @@ public class SeleniumTest {
         	
     
         		driver.findElement(By.xpath("/html/body/div[6]/div[2]/div/div[1]/div[2]/button")).click();
+        		Thread.sleep(500);
         		driver.findElement(By.xpath("/html/body/div[6]/div[2]/button")).click();
+        		Thread.sleep(500);
         		driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[1]/button")).click();
         		driver.findElement(By.name("customerName")).sendKeys("Daman");
         		driver.findElement(By.name("customerEmail")).sendKeys("Daman@yopmail.com");
@@ -110,6 +112,16 @@ public class SeleniumTest {
         		driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[3]/div[2]/div/div[2]/button")).click();
         		Thread.sleep(800);
         		driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[4]/div/div/div[2]/button")).click();
+//        		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        		WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("error-message")));
+//        		System.out.println(errorMsg.getText());
+//        		WebElement errorMsg = driver.findElement(By.xpath("/html/body/section"));
+//        		System.out.println("Error message: " + errorMsg.getText());
+        		List<WebElement> notifications = driver.findElements(By.xpath("/html/body/section"));
+
+        		for(WebElement note : notifications) {
+        		    System.out.println(note.getText());
+        		}
 
         	       	
         }
