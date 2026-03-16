@@ -21,7 +21,7 @@ public class SeleniumTest {
     	
     	String Url= "https://dps.dev.corporate.readytaxxi.com/";
     	
-    	@SuppressWarnings({ "resource", "unused" })
+    	@SuppressWarnings({ "resource" })
 		Scanner sc = new Scanner(System.in);
 
         //Configure chrome to allow notifications
@@ -126,11 +126,23 @@ public class SeleniumTest {
         	       	
         }
 
+        Thread.sleep(5000);
+        System.out.print("Enter Input: ");
+        String input = sc.nextLine();
+        System.out.println(input);
+if(input.equalsIgnoreCase("Cancle")) {
+	Thread.sleep(2000);
+	String Booking_id = driver.findElement(By.xpath("/html/body/div[2]/div/main/div/div[1]/div[1]/div[3]/div[1]/div[1]/p[2]")).getText();
+	driver.findElement(By.xpath("/html/body/div[2]/div/main/div/div[1]/div[2]/div[2]/button")).click();
+	Thread.sleep(500);
+	driver.findElement(By.xpath("/html/body/div[6]/div[2]/button[2]")).click();
+	System.out.println("Ride is cancelled: " + Booking_id );
+}
         // Print URL
         System.out.println(driver.getCurrentUrl());
 
         // Print page title
-        System.out.println(driver.getTitle());
+//        System.out.println(driver.getTitle());
 
         // driver.quit();
     }
