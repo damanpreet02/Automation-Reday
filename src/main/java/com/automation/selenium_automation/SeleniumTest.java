@@ -1,44 +1,28 @@
 package com.automation.selenium_automation;
 
-import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SeleniumTest {
+public class SeleniumTest extends Chrome_settings {
 
-	public static void main(String[] args) throws InterruptedException {
+	static String tab = null;
 
-		String Url = "https://qwe.dev.corporate.readytaxxi.com/";
-		
+	static Scanner sc = new Scanner(System.in);
 
-		// Configure chrome to allow notifications
-		ChromeOptions options = new ChromeOptions();
-		Map<String, Object> prefs = new HashMap<>();
-		prefs.put("profile.default_content_setting_values.notifications", 1); // 1 = Allow
-		options.setExperimentalOption("prefs", prefs);
-
-		WebDriver driver = new ChromeDriver(options);
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		driver.get(Url);
-		@SuppressWarnings({ "resource" })
-		Scanner sc = new Scanner(System.in);
-
-		
-		
-		// Login
-		
+	// Input
+	public static void input() {
+		System.out.println("Enter Tab:");
+		tab = sc.nextLine();
+	}
+	
+	// Login
+	public static void login() {
 //		if(tab.equals("Login")) {
-			
+		
 			WebElement phoneField = wait.until(ExpectedConditions.visibilityOfElementLocated(
 					By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/form/div[1]/div/div[1]/input")));
 			// Wait
@@ -63,15 +47,11 @@ public class SeleniumTest {
 			wait.until(ExpectedConditions.visibilityOfElementLocated(
 					By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")));
 //		}
+	}
 
-			
-			// Input
-			System.out.println("Enter Tab:");
-			String tab = sc.nextLine();
-			System.out.println(tab);
-			
-			
-		// Dashboard or Create Booking
+	// Dashboard or Create Booking
+	public static void create_booking() throws InterruptedException {
+
 		if (tab.equalsIgnoreCase("Dashboard") || tab.equalsIgnoreCase("Create Booking")) {
 			driver.findElement(By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")).click();
 			Thread.sleep(2000);
@@ -120,15 +100,19 @@ public class SeleniumTest {
 				System.out.println(note.getText());
 			}
 
-		}
+			tab = null;
 
-		// Cancellation of Ride
+		}
+	}
+
+	// Cancellation of Ride
+	public static void cancle() throws InterruptedException {
+
 		Thread.sleep(5000);
 		System.out.print("Enter Input: ");
 		String input = sc.nextLine();
 		System.out.println(input);
 		if (input.equalsIgnoreCase("Cancle")) {
-			Thread.sleep(2000);
 			String Booking_id = driver
 					.findElement(By.xpath("/html/body/div[2]/div/main/div/div[1]/div[1]/div[3]/div[1]/div[1]/p[2]"))
 					.getText();
@@ -138,13 +122,10 @@ public class SeleniumTest {
 			System.out.println("Ride is cancelled: " + Booking_id);
 		}
 
+	}
 
-		// Print URL
-		System.out.println(driver.getCurrentUrl());
+	// Main
+	public static void main(String[] args) throws InterruptedException {
 
-		// Print page title
-//        System.out.println(driver.getTitle());
-
-		// driver.quit();
 	}
 }
