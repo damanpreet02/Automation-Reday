@@ -18,7 +18,8 @@ public class SeleniumTest {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		String Url = "https://dps.dev.corporate.readytaxxi.com/";
+		String Url = "https://qwe.dev.corporate.readytaxxi.com/";
+		
 
 		// Configure chrome to allow notifications
 		ChromeOptions options = new ChromeOptions();
@@ -28,19 +29,16 @@ public class SeleniumTest {
 
 		WebDriver driver = new ChromeDriver(options);
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+		driver.get(Url);
 		@SuppressWarnings({ "resource" })
 		Scanner sc = new Scanner(System.in);
 
-		// Input
-		System.out.println("Enter Tab:");
-		String tab = sc.nextLine();
-		System.out.println(tab);
+		
 		
 		// Login
 		
-		if(tab.equals("Login")) {
-			driver.get(Url);
+//		if(tab.equals("Login")) {
+			
 			WebElement phoneField = wait.until(ExpectedConditions.visibilityOfElementLocated(
 					By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/form/div[1]/div/div[1]/input")));
 			// Wait
@@ -64,8 +62,15 @@ public class SeleniumTest {
 
 			wait.until(ExpectedConditions.visibilityOfElementLocated(
 					By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")));
-		}
+//		}
 
+			
+			// Input
+			System.out.println("Enter Tab:");
+			String tab = sc.nextLine();
+			System.out.println(tab);
+			
+			
 		// Dashboard or Create Booking
 		if (tab.equalsIgnoreCase("Dashboard") || tab.equalsIgnoreCase("Create Booking")) {
 			driver.findElement(By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")).click();
