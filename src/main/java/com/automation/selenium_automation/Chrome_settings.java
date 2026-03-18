@@ -13,7 +13,7 @@ public class Chrome_settings {
 
 	protected static WebDriver driver;
 	protected static WebDriverWait wait;
-	void Chrome_setting() {
+	static void Chrome_setting() {
 		String Url = "https://qwe.dev.corporate.readytaxxi.com/";
 		// Configure chrome to allow notifications
 		

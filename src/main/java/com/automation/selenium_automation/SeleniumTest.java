@@ -126,6 +126,19 @@ public class SeleniumTest extends Chrome_settings {
 
 	// Main
 	public static void main(String[] args) throws InterruptedException {
-
+		input();
+		if(tab.equalsIgnoreCase("Login")) {
+			Chrome_setting();
+			login();
+			input();
+		}
+		else if(tab.equalsIgnoreCase("Create"))
+		{
+			create_booking();
+			input();
+		}
+		else if(tab.equalsIgnoreCase("Quit")) {
+			driver.quit();
+		}
 	}
 }
