@@ -18,41 +18,40 @@ public class SeleniumTest extends Chrome_settings {
 		System.out.println("Enter Tab:");
 		tab = sc.nextLine();
 	}
-	
+
 	// Login
 	public static void login() {
 //		if(tab.equals("Login")) {
-		
-			WebElement phoneField = wait.until(ExpectedConditions.visibilityOfElementLocated(
-					By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/form/div[1]/div/div[1]/input")));
-			// Wait
+
+		WebElement phoneField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/form/div[1]/div/div[1]/input")));
+		// Wait
+		wait.until(d -> {
+			String value = phoneField.getAttribute("value");
+			return value.matches("\\d{10}");
+		});
+		driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/form/div[2]/button")).click();
+		System.out.println(driver.getTitle());
+
+		// OTP Wait Loop
+		for (int i = 1; i <= 4; i++) {
+			WebElement d1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("digit" + i)));
 			wait.until(d -> {
-				String value = phoneField.getAttribute("value");
-				return value.matches("\\d{10}");
+				String value = d1.getAttribute("value");
+				return value.matches("\\d{1}");
 			});
-			driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/form/div[2]/button")).click();
-			System.out.println(driver.getTitle());
+		}
 
-			// OTP Wait Loop
-			for (int i = 1; i <= 4; i++) {
-				WebElement d1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("digit" + i)));
-				wait.until(d -> {
-					String value = d1.getAttribute("value");
-					return value.matches("\\d{1}");
-				});
-			}
+		driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/form/button")).click();
 
-			driver.findElement(By.xpath("/html/body/div[2]/div/div/div[2]/form/button")).click();
-
-			wait.until(ExpectedConditions.visibilityOfElementLocated(
-					By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")));
 //		}
 	}
 
 	// Dashboard or Create Booking
 	public static void create_booking() throws InterruptedException {
 
-		if (tab.equalsIgnoreCase("Dashboard") || tab.equalsIgnoreCase("Create Booking")) {
 			driver.findElement(By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")).click();
 			Thread.sleep(2000);
 
@@ -102,7 +101,6 @@ public class SeleniumTest extends Chrome_settings {
 
 			tab = null;
 
-		}
 	}
 
 	// Cancellation of Ride
@@ -126,18 +124,14 @@ public class SeleniumTest extends Chrome_settings {
 
 	// Main
 	public static void main(String[] args) throws InterruptedException {
+		Chrome_setting();
+		login();
 		input();
-		if(tab.equalsIgnoreCase("Login")) {
-			Chrome_setting();
-			login();
-			input();
-		}
-		else if(tab.equalsIgnoreCase("Create"))
-		{
+		if (tab.equalsIgnoreCase("Login")) {
+		} else if (tab.equalsIgnoreCase("Create")) {
 			create_booking();
 			input();
-		}
-		else if(tab.equalsIgnoreCase("Quit")) {
+		} else if (tab.equalsIgnoreCase("Quit")) {
 			driver.quit();
 		}
 	}
