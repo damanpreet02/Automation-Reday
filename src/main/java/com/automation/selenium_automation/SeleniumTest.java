@@ -52,54 +52,53 @@ public class SeleniumTest extends Chrome_settings {
 	// Dashboard or Create Booking
 	public static void create_booking() throws InterruptedException {
 
-			driver.findElement(By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")).click();
-			Thread.sleep(2000);
+		driver.findElement(By.xpath("/html/body/div[2]/div/main/div/div[3]/div[1]/div/div[2]/a/button")).click();
+		Thread.sleep(2000);
 
-			driver.findElement(By.name("pickupLocation")).sendKeys("Henceforth Solution");
-			List<WebElement> suggestions = wait
-					.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("pac-item")));
-			Thread.sleep(1000);
-			suggestions.get(0).click(); // index 0 = second suggestion
+		driver.findElement(By.name("pickupLocation")).sendKeys("Henceforth Solution");
+		List<WebElement> suggestions = wait
+				.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("pac-item")));
+		Thread.sleep(1000);
+		suggestions.get(0).click(); // index 0 = second suggestion
 
-			Thread.sleep(2000);
-			driver.findElement(By.name("destinationLocation")).sendKeys("Dc Office Mohali");
-			List<WebElement> suggestions1 = wait
-					.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("pac-item")));
-			suggestions1.get(0).click();
+		Thread.sleep(2000);
+		driver.findElement(By.name("destinationLocation")).sendKeys("Dc Office Mohali");
+		List<WebElement> suggestions1 = wait
+				.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("pac-item")));
+		suggestions1.get(0).click();
 
-			Thread.sleep(3000);
+		Thread.sleep(3000);
 
-			driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[2]/div/div[2]/button")).click();
+		driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[2]/div/div[2]/button")).click();
 
-			Thread.sleep(5000);
+		Thread.sleep(5000);
 
-			driver.findElement(By.xpath("/html/body/div[6]/div[2]/div/div[1]/div[2]/button")).click();
-			Thread.sleep(500);
-			driver.findElement(By.xpath("/html/body/div[6]/div[2]/button")).click();
-			Thread.sleep(500);
-			driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[1]/button")).click();
-			driver.findElement(By.name("customerName")).sendKeys("Daman");
-			driver.findElement(By.name("customerEmail")).sendKeys("Daman@yopmail.com");
-			driver.findElement(By.name("customerPhone")).sendKeys("121232321");
-			driver.findElement(
-					By.xpath("//html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[3]/div/div/div[2]/button"))
-					.click();
-			driver.findElement(By.xpath(
-					"/html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[3]/div[2]/div/div[1]/div/div[2]/input"))
-					.sendKeys("1234");
-			driver.findElement(
-					By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[3]/div[2]/div/div[2]/button"))
-					.click();
-			Thread.sleep(800);
-			driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[4]/div/div/div[2]/button"))
-					.click();
-			List<WebElement> notifications = driver.findElements(By.xpath("/html/body/section"));
+		driver.findElement(By.xpath("/html/body/div[6]/div[2]/div/div[1]/div[2]/button")).click();
+		Thread.sleep(500);
+		driver.findElement(By.xpath("/html/body/div[6]/div[2]/button")).click();
+		Thread.sleep(500);
+		driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[1]/button")).click();
+		driver.findElement(By.name("customerName")).sendKeys("Daman");
+		driver.findElement(By.name("customerEmail")).sendKeys("Daman@yopmail.com");
+		driver.findElement(By.name("customerPhone")).sendKeys("121232321");
+		driver.findElement(
+				By.xpath("//html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[3]/div/div/div[2]/button"))
+				.click();
+		driver.findElement(By.xpath(
+				"/html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[3]/div[2]/div/div[1]/div/div[2]/input"))
+				.sendKeys("1234");
+		driver.findElement(
+				By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[3]/div/div[3]/div[2]/div/div[2]/button"))
+				.click();
+		Thread.sleep(800);
+		driver.findElement(By.xpath("/html/body/div[2]/div/main/form/div/div[3]/div[4]/div/div/div[2]/button")).click();
+		List<WebElement> notifications = driver.findElements(By.xpath("/html/body/section"));
 
-			for (WebElement note : notifications) {
-				System.out.println(note.getText());
-			}
+		for (WebElement note : notifications) {
+			System.out.println(note.getText());
+		}
 
-			tab = null;
+		tab = null;
 
 	}
 
@@ -127,12 +126,18 @@ public class SeleniumTest extends Chrome_settings {
 		Chrome_setting();
 		login();
 		input();
-		if (tab.equalsIgnoreCase("Login")) {
-		} else if (tab.equalsIgnoreCase("Create")) {
-			create_booking();
-			input();
-		} else if (tab.equalsIgnoreCase("Quit")) {
-			driver.quit();
+
+		while (!tab.equalsIgnoreCase("Quit")) {
+			if (tab.equalsIgnoreCase("Login")) {
+			} else if (tab.equalsIgnoreCase("Create")) {
+				create_booking();
+				input();
+			}
 		}
+		
+		if (tab.equalsIgnoreCase("Quit")) {
+		driver.quit();	
+		}
+
 	}
 }
